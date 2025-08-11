@@ -1,5 +1,11 @@
 package menu;
 
+import exceptions.ClienteException;
+import model.Cliente;
+import service.ClienteService;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import static util.Util.escreverLinhasSeparadoras;
@@ -8,7 +14,7 @@ public class ClientesMenu {
 
     private static Scanner scanner = new Scanner(System.in);
 
-    public static void exibirMenu() {
+    public static void exibirMenu() throws ClienteException {
         int sair = 0;
         do {
             System.out.println("\n");
@@ -28,7 +34,7 @@ public class ClientesMenu {
                     // Abrir menu de Clientes
                     break;
                 case "2":
-                    // Abrir menu de Livros
+                    listar();
                     break;
                 case "3":
                     break;
@@ -42,5 +48,12 @@ public class ClientesMenu {
         } while (sair == 0);
     }
 
+    private static void listar() throws ClienteException {
+        List<Cliente> clientes = ClienteService.listar();
+
+        for (Cliente cliente : clientes) {
+            System.out.println(cliente);
+        }
+    }
 
 }
