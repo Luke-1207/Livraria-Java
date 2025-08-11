@@ -2,7 +2,7 @@ package exceptions;
 
 import java.io.IOException;
 
-public class ClienteException extends IOException {
+public class ClienteException extends RuntimeException {
     public ClienteException(String message) {
         super(message);
     }

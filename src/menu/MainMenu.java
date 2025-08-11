@@ -1,5 +1,7 @@
 package menu;
 
+import exceptions.ClienteException;
+
 import java.util.Scanner;
 
 import static util.Util.escreverLinhasSeparadoras;
@@ -20,12 +22,12 @@ public class MainMenu {
             System.out.println("5 - Sair");
             escreverLinhasSeparadoras();
 
-            System.out.println("Escolha uma opção: ");
+            System.out.print("Escolha uma opção: ");
             String opcao = scanner.nextLine();
 
             switch (opcao) {
                 case "1":
-                    // Abrir menu de Clientes
+                    ClientesMenu.exibirMenu();
                     break;
                 case "2":
                     // Abrir menu de Livros

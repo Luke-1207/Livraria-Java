@@ -4,7 +4,6 @@ import exceptions.ClienteException;
 import model.Cliente;
 import service.ClienteService;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -26,12 +25,12 @@ public class ClientesMenu {
             System.out.println("4 - Sair");
             escreverLinhasSeparadoras();
 
-            System.out.println("Escolha uma opção: ");
+            System.out.print("Escolha uma opção: ");
             String opcao = scanner.nextLine();
 
             switch (opcao) {
                 case "1":
-                    // Abrir menu de Clientes
+                    cadastrar();
                     break;
                 case "2":
                     listar();
@@ -53,6 +52,15 @@ public class ClientesMenu {
 
         for (Cliente cliente : clientes) {
             System.out.println(cliente);
+        }
+    }
+
+    private static void cadastrar() {
+        try {
+            Cliente clienteCadastrado = ClienteService.cadastrar();
+            System.out.println(String.format("Cliente %d - %s cadastrado com sucesso.", clienteCadastrado.getId(), clienteCadastrado.getNome()));
+        } catch (ClienteException e) {
+            System.err.println(e.getMessage());
         }
     }
 
