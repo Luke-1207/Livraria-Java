@@ -1,7 +1,5 @@
 package menu;
 
-import exceptions.ClienteException;
-
 import java.util.Scanner;
 
 import static util.Util.escreverLinhasSeparadoras;

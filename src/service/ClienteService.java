@@ -6,7 +6,6 @@ import repository.ClienteRepository;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -59,6 +58,20 @@ public class ClienteService {
             return cliente;
         } catch (IOException | ClienteException e) {
             throw new ClienteException("Erro ao cadastrar cliente no CSV: " + e.getMessage(), e);
+        }
+    }
+
+    public static Integer excluir(){
+        System.out.println("Excluir Cliente");
+
+        try {
+            System.out.print("Digite o id do cliente:");
+            Integer id = Integer.valueOf(scanner.nextLine());
+
+            ClienteRepository.excluir(id);
+            return id;
+        } catch (IOException | ClienteException e) {
+            throw new ClienteException("Erro ao excluir cliente no CSV: " + e.getMessage(), e);
         }
     }
 

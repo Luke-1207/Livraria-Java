@@ -36,6 +36,7 @@ public class ClientesMenu {
                     listar();
                     break;
                 case "3":
+                    excluir();
                     break;
                 case "4":
                     sair = 1;
@@ -59,6 +60,15 @@ public class ClientesMenu {
         try {
             Cliente clienteCadastrado = ClienteService.cadastrar();
             System.out.println(String.format("Cliente %d - %s cadastrado com sucesso.", clienteCadastrado.getId(), clienteCadastrado.getNome()));
+        } catch (ClienteException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+
+    private static void excluir() {
+        try {
+            Integer idExcluido = ClienteService.excluir();
+            System.out.println(String.format("Cliente %d excluído com sucesso.", idExcluido));
         } catch (ClienteException e) {
             System.err.println(e.getMessage());
         }

@@ -1,5 +1,6 @@
 package repository;
 
+import exceptions.ClienteException;
 import model.Cliente;
 
 import java.io.File;
@@ -14,9 +15,7 @@ import java.util.List;
 public class ClienteRepository {
 
     public static List<String> listar() throws IOException {
-        verificarDiretorioEArquivo();
-        Path arquivoOrigem = Paths.get("./src/dados/clientes.csv");
-
+        Path arquivoOrigem = obterArquivo();
         return Files.readAllLines(arquivoOrigem, StandardCharsets.UTF_8);
     }
 
@@ -28,9 +27,28 @@ public class ClienteRepository {
         conteudo.append(cliente.getEmail() + ";");
         conteudo.append(System.lineSeparator());
 
-        verificarDiretorioEArquivo();
-        Path arquivo = Paths.get("./src/dados/clientes.csv");
+        Path arquivo = obterArquivo();
         Files.write(arquivo, conteudo.toString().getBytes(StandardCharsets.UTF_8), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
+    }
+
+    public static void excluir(Integer id) throws IOException {
+        Path arquivo = ClienteRepository.obterArquivo();
+
+        List<String> linhas = Files.readAllLines(arquivo, StandardCharsets.UTF_8);
+        String linha = linhas.stream()
+                .filter(c -> {
+                    String[] partes = c.split(";");
+                    return partes[0].equals(id.toString());
+                })
+                .findFirst().orElseThrow(() -> new ClienteException(String.format("Cliente com id '%d' não encontrado", id)));
+
+        linhas.remove(linha);
+        Files.write(arquivo, linhas, StandardCharsets.UTF_8);
+    }
+
+    private static Path obterArquivo() {
+        verificarDiretorioEArquivo();
+        return Paths.get("./src/dados/clientes.csv");
     }
 
     private static void verificarDiretorioEArquivo(){
