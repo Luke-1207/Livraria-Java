@@ -25,10 +25,10 @@ public class MainMenu {
 
             switch (opcao) {
                 case "1":
-                    ClientesMenu.exibirMenu();
+                    ClienteMenu.exibirMenu();
                     break;
                 case "2":
-                    // Abrir menu de Livros
+                    LivroMenu.exibirMenu();
                     break;
                 case "3":
                     break;

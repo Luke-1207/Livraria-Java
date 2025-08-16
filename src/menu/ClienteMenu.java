@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 import static util.Util.escreverLinhasSeparadoras;
 
-public class ClientesMenu {
+public class ClienteMenu {
 
     private static Scanner scanner = new Scanner(System.in);
 

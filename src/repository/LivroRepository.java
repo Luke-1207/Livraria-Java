@@ -1,7 +1,7 @@
 package repository;
 
-import exceptions.ClienteException;
-import model.Cliente;
+import exceptions.LivroException;
+import model.Livro;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -11,21 +11,23 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.List;
 
-import static util.Util.CLIENTES_CSV;
+import static util.Util.LIVROS_CSV;
 
-public class ClienteRepository extends ArquivoRepository {
+public class LivroRepository extends ArquivoRepository {
 
     public static List<String> listar() throws IOException {
         Path arquivoOrigem = obterArquivo();
         return Files.readAllLines(arquivoOrigem, StandardCharsets.UTF_8);
     }
 
-    public static void cadastrar(Cliente cliente) throws IOException {
+    public static void cadastrar(Livro livro) throws IOException {
         StringBuilder conteudo = new StringBuilder();
-        conteudo.append(cliente.getId() + ";");
-        conteudo.append(cliente.getNome() + ";");
-        conteudo.append(cliente.getDataNascimento() + ";");
-        conteudo.append(cliente.getEmail() + ";");
+        conteudo.append(livro.getId() + ";");
+        conteudo.append(livro.getTitulo() + ";");
+        conteudo.append(livro.getAutor().getId() + ";");
+        conteudo.append(livro.getDisponivel() + ";");
+        conteudo.append(livro.getDataCadastro() + ";");
+        conteudo.append(livro.getDataAtualizacao() + ";");
         conteudo.append(System.lineSeparator());
 
         Path arquivo = obterArquivo();
@@ -41,15 +43,15 @@ public class ClienteRepository extends ArquivoRepository {
                     String[] partes = c.split(";");
                     return partes[0].equals(id.toString());
                 })
-                .findFirst().orElseThrow(() -> new ClienteException(String.format("Cliente com id '%d' não encontrado", id)));
+                .findFirst().orElseThrow(() -> new LivroException(String.format("Livro com id '%d' não encontrado", id)));
 
         linhas.remove(linha);
         Files.write(arquivo, linhas, StandardCharsets.UTF_8);
     }
 
     private static Path obterArquivo() {
-        verificarDiretorioEArquivo(CLIENTES_CSV);
-        return Paths.get("./src/dados/" + CLIENTES_CSV);
+        verificarDiretorioEArquivo(LIVROS_CSV);
+        return Paths.get("./src/dados/" + LIVROS_CSV);
     }
 
 }

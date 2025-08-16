@@ -7,6 +7,9 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class Util {
+    public static final String CLIENTES_CSV = "clientes.csv";
+    public static final String LIVROS_CSV = "livros.csv";
+
     public static void escreverLinhasSeparadoras(){
         System.out.println("-".repeat(20));
     }
