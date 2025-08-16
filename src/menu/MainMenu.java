@@ -31,6 +31,7 @@ public class MainMenu {
                     LivroMenu.exibirMenu();
                     break;
                 case "3":
+                    AutorMenu.exibirMenu();
                     break;
                 case "4":
                     break;

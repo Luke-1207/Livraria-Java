@@ -30,8 +30,7 @@ public class LivroService {
             String[] colunas = linha.split("\\;");
             Integer id = Integer.valueOf(colunas[0]);
             String titulo = colunas[1];
-            // todo - autor - get em objeto por id na lista de autores
-            Autor autor = new Autor(1, "teste", LocalDate.now());
+            Autor autor = AutorService.listarPorId(Integer.valueOf(colunas[2]));
             Boolean disponivel = Boolean.getBoolean(colunas[3]);
             LocalDateTime dataCadastro = LocalDateTime.parse(colunas[4]);
             LocalDateTime dataAtualizacao = LocalDateTime.parse(colunas[5]);
@@ -51,8 +50,7 @@ public class LivroService {
 
             System.out.print("Digite o id do autor do livro: ");
             Integer idAutor = Integer.valueOf(scanner.nextLine());
-            // todo - autor - get em objeto por id na lista de autores
-            Autor autor = new Autor(idAutor, "teste", LocalDate.now());
+            Autor autor = AutorService.listarPorId(idAutor);
 
             LocalDateTime dataCadastro = LocalDateTime.now();
             LocalDateTime dataAtualizacao = LocalDateTime.now();

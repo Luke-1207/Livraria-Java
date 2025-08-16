@@ -1,24 +1,24 @@
 package menu;
 
-import exceptions.LivroException;
-import model.Livro;
-import service.LivroService;
+import exceptions.AutorException;
+import model.Autor;
+import service.AutorService;
 
 import java.util.List;
 import java.util.Scanner;
 
 import static util.Util.escreverLinhasSeparadoras;
 
-public class LivroMenu {
+public class AutorMenu {
 
     private static Scanner scanner = new Scanner(System.in);
 
-    public static void exibirMenu() throws LivroException {
+    public static void exibirMenu() throws AutorException {
         int sair = 0;
         do {
             System.out.println("\n");
             escreverLinhasSeparadoras();
-            System.out.println("MENU - Livros");
+            System.out.println("MENU - Autores");
             System.out.println("1 - Cadastrar");
             System.out.println("2 - Listar");
             System.out.println("3 - Excluir");
@@ -48,28 +48,28 @@ public class LivroMenu {
         } while (sair == 0);
     }
 
-    private static void listar() throws LivroException {
-        List<Livro> livros = LivroService.listar();
+    private static void listar() throws AutorException {
+        List<Autor> autores = AutorService.listar();
 
-        for (Livro livro : livros) {
-            System.out.println(livro);
+        for (Autor autor : autores) {
+            System.out.println(autor);
         }
     }
 
     private static void cadastrar() {
         try {
-            Livro livroCadastrado = LivroService.cadastrar();
-            System.out.println(String.format("Livro %d - %s cadastrado com sucesso.", livroCadastrado.getId(), livroCadastrado.getTitulo()));
-        } catch (LivroException e) {
+            Autor autorCadastrado = AutorService.cadastrar();
+            System.out.println(String.format("Autor %d - %s cadastrado com sucesso.", autorCadastrado.getId(), autorCadastrado.getNome()));
+        } catch (AutorException e) {
             System.err.println(e.getMessage());
         }
     }
 
     private static void excluir() {
         try {
-            Integer idExcluido = LivroService.excluir();
-            System.out.println(String.format("Livro %d excluído com sucesso.", idExcluido));
-        } catch (LivroException e) {
+            Integer idExcluido = AutorService.excluir();
+            System.out.println(String.format("Autor %d excluído com sucesso.", idExcluido));
+        } catch (AutorException e) {
             System.err.println(e.getMessage());
         }
     }
