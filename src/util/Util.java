@@ -10,6 +10,7 @@ public class Util {
     public static final String CLIENTES_CSV = "clientes.csv";
     public static final String LIVROS_CSV = "livros.csv";
     public static final String AUTORES_CSV = "autores.csv";
+    public static final String EMPRESTIMOS_CSV = "emprestimos.csv";
 
     public static void escreverLinhasSeparadoras(){
         System.out.println("-".repeat(20));
