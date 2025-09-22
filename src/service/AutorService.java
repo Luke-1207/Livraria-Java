@@ -32,7 +32,7 @@ public class AutorService {
             String[] colunas = linha.split("\\;");
             Integer id = Integer.valueOf(colunas[0]);
             String nome = colunas[1];
-            LocalDate dataNascimento = LocalDate.parse(colunas[4]);
+            LocalDate dataNascimento = LocalDate.parse(colunas[2]);
 
             autores.add(new Autor(id, nome, dataNascimento));
         }

@@ -34,6 +34,7 @@ public class MainMenu {
                     AutorMenu.exibirMenu();
                     break;
                 case "4":
+                    EmprestimoMenu.exibirMenu();
                     break;
                 case "5":
                     sair = 1;

@@ -19,19 +19,19 @@ public class EmprestimoRepository extends ArquivoRepository {
         return Files.readAllLines(arquivoOrigem, StandardCharsets.UTF_8);
     }
 
-    public static void cadastrar(Emprestimo autor) throws IOException {
+    public static void cadastrar(Emprestimo emprestimo) throws IOException {
         StringBuilder conteudo = new StringBuilder();
-        conteudo.append(autor.getId() + ";");
-        conteudo.append(autor.getCliente().getId() + ";");
-        conteudo.append(autor.getLivro().getId() + ";");
-        conteudo.append(autor.getDataHoraEmprestimo() + ";");
+        conteudo.append(emprestimo.getId() + ";");
+        conteudo.append(emprestimo.getCliente().getId() + ";");
+        conteudo.append(emprestimo.getLivro().getId() + ";");
+        conteudo.append(emprestimo.getDataHoraEmprestimo() + ";");
         conteudo.append(System.lineSeparator());
 
         Path arquivo = obterArquivo();
         Files.write(arquivo, conteudo.toString().getBytes(StandardCharsets.UTF_8), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
     }
 
-    public static void excluir(Integer id) throws IOException {
+    public static void cancelar(Integer id) throws IOException {
         Path arquivo = obterArquivo();
 
         List<String> linhas = Files.readAllLines(arquivo, StandardCharsets.UTF_8);

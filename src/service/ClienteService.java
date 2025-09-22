@@ -1,13 +1,16 @@
 package service;
 
+import exceptions.AutorException;
 import exceptions.ClienteException;
 import model.Cliente;
+import model.Emprestimo;
 import repository.ClienteRepository;
 
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 
 import static util.Util.converterParaLocalDate;
@@ -39,6 +42,15 @@ public class ClienteService {
         return clientes;
     }
 
+    public static Cliente listarPorId(Integer id) throws ClienteException {
+        List<Cliente> clientes = listar();
+        Cliente cliente = clientes.stream()
+                .filter(c -> Objects.equals(c.getId(), id))
+                .findFirst().orElseThrow(() -> new ClienteException(String.format("Cliente com id '%d' não encontrado", id)));
+
+        return cliente;
+    }
+
     public static Cliente cadastrar() {
         System.out.println("Cadastrar Cliente");
 
@@ -67,6 +79,10 @@ public class ClienteService {
         try {
             System.out.print("Digite o id do cliente:");
             Integer id = Integer.valueOf(scanner.nextLine());
+
+            List<Emprestimo> emprestimos = EmprestimoService.listarPorClienteId(id);
+            if (emprestimos.stream().anyMatch(e -> e.getCliente().getId().equals(id)))
+                throw new AutorException("O Cliente está atrelado a um ou mais empréstimos. Impossível excluir.");
 
             ClienteRepository.excluir(id);
             return id;

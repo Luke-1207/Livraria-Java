@@ -10,6 +10,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.List;
+import java.util.Objects;
 
 import static util.Util.LIVROS_CSV;
 
@@ -46,6 +47,31 @@ public class LivroRepository extends ArquivoRepository {
                 .findFirst().orElseThrow(() -> new LivroException(String.format("Livro com id '%d' não encontrado", id)));
 
         linhas.remove(linha);
+        Files.write(arquivo, linhas, StandardCharsets.UTF_8);
+    }
+
+    public static void atualizar(Livro livroAtualizado) throws IOException {
+        Path arquivo = obterArquivo();
+        List<String> linhas = Files.readAllLines(arquivo, StandardCharsets.UTF_8);
+
+        for (int i = 0; i < linhas.size(); i++) {
+            String[] partes = linhas.get(i).split(";");
+            Integer id = Integer.valueOf(partes[0]);
+
+            if (Objects.equals(id, livroAtualizado.getId())) {
+                String novaLinha = String.format("%d;%s;%d;%s;%s;%s;",
+                        livroAtualizado.getId(),
+                        livroAtualizado.getTitulo(),
+                        livroAtualizado.getAutor().getId(),
+                        livroAtualizado.getDisponivel(),
+                        livroAtualizado.getDataCadastro(),
+                        livroAtualizado.getDataAtualizacao());
+
+                linhas.set(i, novaLinha);
+                break;
+            }
+        }
+
         Files.write(arquivo, linhas, StandardCharsets.UTF_8);
     }
 
